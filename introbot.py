@@ -3,7 +3,9 @@ import time
 import urllib
 import requests
 import random
+from dbhelper import DBHelper
 
+db = DBHelper()
 TOKEN = "605773092:AAGbLA78D8cmcFUJyLvzLRbvnhN_TqxwWCI"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 greetings = {1: "I hear you 110% man", 2: "I'm listening", 3: "I feel you bro",
