@@ -37,15 +37,22 @@ def get_last_chat_id(updates):
     chat_id = updates["result"][last_update]["message"]["chat"]["id"]
     return chat_id
     
-def send_message(text, chat_id):
+def send_message(text, chat_id, reply_markup=None):
     text = urllib.parse.quote_plus(text)
-    url = URL + "sendMessage?text={}&chat_id={}".format(text, chat_id)
+    url = URL + "sendMessage?text={}&chat_id={}&parse_mode=Markdown".format(text, chat_id)
+    if reply_markup:
+        url += "&reply_markup={}".format(reply_markup)
     get_url(url)
     
 def get_bitfinex_updates():
     js1 = get_json_from_url(URL2)
     js2 = get_json_from_url(URL3)
     return (js1, js2)
+
+def build_keyboard(items):
+    keyboard = [[item] for item in items]
+    reply_markup = {"keyboard":keyboard, "one_time_keyboard": True}
+    return json.dumps(reply_markup)
 
 def main():
     while True:
