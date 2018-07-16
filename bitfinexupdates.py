@@ -24,7 +24,8 @@ def get_updates():
     return js
   
 def get_bitfinex_updates():
-    url = URL2 +
-    js = get_json_from_url(url)
+    js = []
+    js[0] = get_json_from_url(URL2)
+    js[1] = get_json_from_url(URL3)
     return js
     
