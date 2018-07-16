@@ -18,10 +18,18 @@ def get_json_from_url(url):
     js = json.loads(content)
     return js
   
-def get_updates():
-    url = URL + "getUpdates"
+def get_updates(offset=None):
+    url = URL + "getUpdates?timeout=100"
+    if offset:
+        url += "&offset={}".format(offset)
     js = get_json_from_url(url)
     return js
+
+def get_last_update_id(updates):
+    update_ids = []
+    for update in updates["result"]:
+        update_ids.append(int(update["update_id"]))
+    return max(update_ids)
 
 def get_last_chat_id(updates):
     num_updates = len(updates["result"])
@@ -30,6 +38,7 @@ def get_last_chat_id(updates):
     return chat_id
     
 def send_message(text, chat_id):
+    text = urllib.parse.quote_plus(text)
     url = URL + "sendMessage?text={}&chat_id={}".format(text, chat_id)
     get_url(url)
     
