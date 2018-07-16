@@ -22,10 +22,29 @@ def get_updates():
     url = URL + "getUpdates"
     js = get_json_from_url(url)
     return js
-  
-def get_bitfinex_updates():
-    js = []
-    js[0] = get_json_from_url(URL2)
-    js[1] = get_json_from_url(URL3)
-    return js
+
+def get_last_chat_id(updates):
+    num_updates = len(updates["result"])
+    last_update = num_updates - 1
+    chat_id = updates["result"][last_update]["message"]["chat"]["id"]
+    return chat_id
     
+def send_message(text, chat_id):
+    url = URL + "sendMessage?text={}&chat_id={}".format(text, chat_id)
+    get_url(url)
+    
+def get_bitfinex_updates():
+    js1 = get_json_from_url(URL2)
+    js2 = get_json_from_url(URL3)
+    return (js1, js2)
+
+def main():
+    while True:
+        chat = get_last_chat_id(get_updates())
+        js1, js2 = get_bitfinex_updates()
+        long, short = (js1[1], js2[1])
+        send_message("Longs = " + str(long) + ", Shorts = " + str(short), chat)
+        time.sleep(60)
+        
+if __name__ == '__main__':
+    main()
