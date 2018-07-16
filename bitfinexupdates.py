@@ -5,8 +5,8 @@ import requests
 
 TOKEN = "633569439:AAEfYxsd-ltfZw7tkNKE_Pjewt9ckjIU2xg"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
-URL2 = https://api.bitfinex.com/v2/stats1/pos.size:1m:tBTCUSD:long/last
-URL3 = https://api.bitfinex.com/v2/stats1/pos.size:1m:tBTCUSD:short/last        
+URL2 = "https://api.bitfinex.com/v2/stats1/pos.size:1m:tBTCUSD:long/last"
+URL3 = "https://api.bitfinex.com/v2/stats1/pos.size:1m:tBTCUSD:short/last" 
 
 def get_url(url):
     response = requests.get(url)
